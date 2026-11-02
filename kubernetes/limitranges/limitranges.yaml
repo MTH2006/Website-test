@@ -1,0 +1,66 @@
+# ========================================================
+# LIMIT RANGES FOR TEAMS A, B, C
+# Specifies default and maximum resource per container
+# ========================================================
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: team-a-limitrange
+  namespace: team-a
+spec:
+  limits:
+  - default:
+      cpu: "300m"
+      memory: "256Mi"
+    defaultRequest:
+      cpu: "100m"
+      memory: "128Mi"
+    max:
+      cpu: "1000m"
+      memory: "1Gi"
+    min:
+      cpu: "50m"
+      memory: "64Mi"
+    type: Container
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: team-b-limitrange
+  namespace: team-b
+spec:
+  limits:
+  - default:
+      cpu: "300m"
+      memory: "256Mi"
+    defaultRequest:
+      cpu: "100m"
+      memory: "128Mi"
+    max:
+      cpu: "1000m"
+      memory: "1Gi"
+    min:
+      cpu: "50m"
+      memory: "64Mi"
+    type: Container
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: team-c-limitrange
+  namespace: team-c
+spec:
+  limits:
+  - default:
+      cpu: "300m"
+      memory: "256Mi"
+    defaultRequest:
+      cpu: "100m"
+      memory: "128Mi"
+    max:
+      cpu: "1000m"
+      memory: "1Gi"
+    min:
+      cpu: "50m"
+      memory: "64Mi"
+    type: Container

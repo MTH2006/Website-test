@@ -1,0 +1,34 @@
+# ========================================================
+# NETWORK POLICIES: DEFAULT DENY ALL INGRESS TRAFFIC
+# Applied to team-a, team-b, team-c
+# Blocks all cross-namespace communication by default
+# ========================================================
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: team-a
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: team-b
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: team-c
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress

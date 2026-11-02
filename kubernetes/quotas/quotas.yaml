@@ -1,0 +1,48 @@
+# ========================================================
+# RESOURCE QUOTAS FOR TEAMS A, B, C
+# Limits total CPU, RAM, and Pods per Namespace
+# ========================================================
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-a-quota
+  namespace: team-a
+  labels:
+    team: team-a
+spec:
+  hard:
+    requests.cpu: "1000m"
+    requests.memory: "1Gi"
+    limits.cpu: "2000m"
+    limits.memory: "2Gi"
+    pods: "4"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-b-quota
+  namespace: team-b
+  labels:
+    team: team-b
+spec:
+  hard:
+    requests.cpu: "1000m"
+    requests.memory: "1Gi"
+    limits.cpu: "2000m"
+    limits.memory: "2Gi"
+    pods: "4"
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-c-quota
+  namespace: team-c
+  labels:
+    team: team-c
+spec:
+  hard:
+    requests.cpu: "1000m"
+    requests.memory: "1Gi"
+    limits.cpu: "2000m"
+    limits.memory: "2Gi"
+    pods: "4"

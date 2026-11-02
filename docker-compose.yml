@@ -1,0 +1,71 @@
+services:
+  minicaas-postgres:
+    image: postgres:16-alpine
+    container_name: minicaas-postgres
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME:-minicaas}
+      POSTGRES_USER: ${DB_USER:-minicaas_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+    volumes:
+      - minicaas_pgdata:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-minicaas_admin} -d ${DB_NAME:-minicaas}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - default
+
+  minicaas-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: minicaas-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8088}:8088"
+    environment:
+      SERVER_PORT: 8088
+      SPRING_DATASOURCE_URL: jdbc:postgresql://minicaas-postgres:5432/${DB_NAME:-minicaas}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-minicaas_admin}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      APP_JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      APP_JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
+      APP_K8S_CLUSTER_NAME: ${K8S_CLUSTER_NAME:-caas-cluster}
+      APP_K8S_DEFAULT_NAMESPACES: team-a,team-b,team-c
+      KUBECONFIG: /root/.kube/config
+    volumes:
+      - ./kubernetes/kubeconfig-internal.yaml:/root/.kube/config:ro
+      - ./kubernetes:/app/kubernetes:ro
+    networks:
+      - default
+      - kind
+    depends_on:
+      minicaas-postgres:
+        condition: service_healthy
+
+  minicaas-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: minicaas-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+    networks:
+      - default
+    depends_on:
+      - minicaas-backend
+
+volumes:
+  minicaas_pgdata:
+    name: minicaas_pgdata
+
+networks:
+  default:
+  kind:
+    external: true

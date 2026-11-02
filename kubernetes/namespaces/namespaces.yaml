@@ -1,0 +1,29 @@
+# ========================================================
+# NAMESPACES FOR TEAMS A, B, C
+# ========================================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-a
+  labels:
+    team: team-a
+    platform: mini-caas
+    environment: development
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-b
+  labels:
+    team: team-b
+    platform: mini-caas
+    environment: development
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: team-c
+  labels:
+    team: team-c
+    platform: mini-caas
+    environment: development

@@ -1,0 +1,123 @@
+# ========================================================
+# RBAC CONFIGURATION FOR TEAMS A, B, C
+# Enforces Least Privilege & Namespace Scoping
+# ========================================================
+
+# --- TEAM A ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: team-a-sa
+  namespace: team-a
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: team-developer-role
+  namespace: team-a
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["pods", "pods/log", "pods/status", "services", "deployments", "replicasets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["resourcequotas", "limitranges"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: team-a-developer-binding
+  namespace: team-a
+subjects:
+- kind: ServiceAccount
+  name: team-a-sa
+  namespace: team-a
+roleRef:
+  kind: Role
+  name: team-developer-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# --- TEAM B ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: team-b-sa
+  namespace: team-b
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: team-developer-role
+  namespace: team-b
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["pods", "pods/log", "pods/status", "services", "deployments", "replicasets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["resourcequotas", "limitranges"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: team-b-developer-binding
+  namespace: team-b
+subjects:
+- kind: ServiceAccount
+  name: team-b-sa
+  namespace: team-b
+roleRef:
+  kind: Role
+  name: team-developer-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# --- TEAM C ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: team-c-sa
+  namespace: team-c
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: team-developer-role
+  namespace: team-c
+rules:
+- apiGroups: ["", "apps"]
+  resources: ["pods", "pods/log", "pods/status", "services", "deployments", "replicasets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"] # Team C can read their own secrets
+- apiGroups: [""]
+  resources: ["resourcequotas", "limitranges"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: team-c-developer-binding
+  namespace: team-c
+subjects:
+- kind: ServiceAccount
+  name: team-c-sa
+  namespace: team-c
+roleRef:
+  kind: Role
+  name: team-developer-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Test Secret in Team C (To verify Team B CANNOT read it in Test 3)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: team-c-vault-secret
+  namespace: team-c
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "TeamCSuperSecretKey2026!DoNotLeak"
+  API_TOKEN: "caas-sec-token-c-987654321"

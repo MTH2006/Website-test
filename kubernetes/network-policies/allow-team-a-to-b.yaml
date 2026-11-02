@@ -1,0 +1,20 @@
+# ========================================================
+# NETWORK POLICY: ALLOW TEAM A TO ACCESS TEAM B
+# Used in Demo Lab Test 4 to verify allowed communication
+# ========================================================
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-from-team-a
+  namespace: team-b
+  labels:
+    demo-policy: "true"
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          team: team-a

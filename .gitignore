@@ -1,0 +1,58 @@
+# Environment variables
+.env
+*.env.local
+
+# Java / Spring Boot / Maven
+backend/target/
+backend/*.log
+backend/.project
+backend/.classpath
+backend/.settings/
+backend/.factorypath
+backend/bin/
+
+# Frontend / Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# IDE / Editor
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Kubernetes & Secrets
+*.kubeconfig
+kubeconfig
+*.key
+*.pem
+*.crt
+database/backup/*.sql
+
+# Reports (keep directory structure)
+reports/*.pdf
+reports/*.csv
+!reports/.gitkeep
+
+# Kubernetes credentials
+kubernetes/kubeconfig-internal.yaml
+kubernetes/*.kubeconfig
+
+# Temporary test files
+backend/test*.argfile
+backend/Dockerfile.txt
