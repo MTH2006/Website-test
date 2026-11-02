@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MINI CaaS PLATFORM
 ### Nền tảng Container as a Service Đa Người Dùng với Quota và Cô Lập Tài Nguyên
 
@@ -174,3 +175,6 @@ c:\WEBSITE-ĐTDDM\
 - Đọc kịch bản thuyết trình và bộ câu hỏi vấn đáp: [docs/demo-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/demo-guide.md)
 - Hướng dẫn cài đặt và khắc phục sự cố: [docs/installation-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/installation-guide.md)
 - Hướng dẫn thao tác giao diện: [docs/user-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/user-guide.md)
+=======
+# Website-test
+>>>>>>> origin/main
