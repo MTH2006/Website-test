@@ -74,7 +74,8 @@ function Run-SingleTest($code) {
         }
 
         Write-Host "Bang chung ky thuat (Technical Evidence):" -ForegroundColor White
-        Write-Host $res.evidence -ForegroundColor DarkCyan
+        $ev = if ($res.technicalEvidence) { $res.technicalEvidence } else { $res.evidence }
+        Write-Host $ev -ForegroundColor DarkCyan
         Write-Host ""
         return $res
     } catch {
@@ -106,9 +107,11 @@ Write-Host "  TONG KET KET QUA KIEM THU DEMO LAB TREN KUBERNETES THAT" -Foregrou
 Write-Host "======================================================================" -ForegroundColor Cyan
 foreach ($r in $results) {
     $statusColor = if ($r.status -eq "PASSED") { "Green" } else { "Red" }
+    $dur = if ($r.durationMs) { $r.durationMs } else { $r.executionTimeMs }
+    $tName = if ($r.testName) { $r.testName } else { $r.title }
     Write-Host ($r.testCode + " | ") -NoNewline
     Write-Host ($r.status + " | ") -ForegroundColor $statusColor -NoNewline
-    Write-Host ($r.executionTimeMs + "ms | " + $r.title)
+    Write-Host "$dur ms | $tName"
 }
 Write-Host "======================================================================" -ForegroundColor Cyan
 Write-Host "Toan bo ket qua da duoc luu ben vung vao PostgreSQL!" -ForegroundColor Green

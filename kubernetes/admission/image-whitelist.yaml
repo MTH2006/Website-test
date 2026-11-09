@@ -17,7 +17,7 @@ spec:
       operations:  ["CREATE", "UPDATE"]
       resources:   ["pods"]
   validations:
-    - expression: "object.spec.containers.all(c, c.image.startsWith('nginx') || c.image.startsWith('alpine') || c.image.startsWith('busybox') || c.image.startsWith('redis') || c.image.startsWith('docker.io/library/nginx') || c.image.startsWith('docker.io/library/alpine') || c.image.startsWith('docker.io/library/busybox'))"
+    - expression: "object.spec.containers.all(c, c.image.matches(r'^((docker\\.io/)?(library/)?)?(nginx|alpine|busybox|redis)([:@].*)?$'))"
       message: "Admission Denied by Mini CaaS Policy: Container image is not in the approved whitelist (allowed: nginx, alpine, busybox, redis)."
 ---
 apiVersion: admissionregistration.k8s.io/v1

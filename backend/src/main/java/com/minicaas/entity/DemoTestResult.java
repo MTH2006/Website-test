@@ -45,6 +45,9 @@ public class DemoTestResult {
     @Column(name = "executed_at")
     private Instant executedAt = Instant.now();
 
+    @Transient
+    private long durationMs = 0;
+
     public DemoTestResult() {}
 
     public static Builder builder() { return new Builder(); }
@@ -59,6 +62,7 @@ public class DemoTestResult {
         public Builder executionLog(String l) { r.setExecutionLog(l); return this; }
         public Builder technicalEvidence(String e) { r.setTechnicalEvidence(e); return this; }
         public Builder executedAt(Instant t) { r.setExecutedAt(t); return this; }
+        public Builder durationMs(long d) { r.setDurationMs(d); return this; }
         public DemoTestResult build() { return r; }
     }
 
@@ -94,4 +98,7 @@ public class DemoTestResult {
 
     public Instant getExecutedAt() { return executedAt; }
     public void setExecutedAt(Instant executedAt) { this.executedAt = executedAt; }
+
+    public long getDurationMs() { return durationMs; }
+    public void setDurationMs(long durationMs) { this.durationMs = durationMs; }
 }

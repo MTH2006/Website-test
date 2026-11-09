@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 # MINI CaaS PLATFORM
 ### Nền tảng Container as a Service Đa Người Dùng với Quota và Cô Lập Tài Nguyên
 
 > **Đồ án môn học:** Điện toán đám mây (Cloud Computing)  
-> **Đối tượng:** Sinh viên Năm 2 ngành Công nghệ Thông tin  
+> **Đối tượng:** Sinh viên Năm ngành Công nghệ Thông tin  
 > **Kiến trúc:** Microservices & Multi-Tenant Cloud Architecture (Kubernetes + Spring Boot + React + PostgreSQL)  
 > **Trạng thái:** Hoàn chỉnh 100% – Kết nối Kubernetes thật – 6/6 Bài kiểm thử ĐẠT (PASSED)
 
@@ -106,7 +105,7 @@ powershell -ExecutionPolicy Bypass -File scripts\demo.ps1
 | `TEST_03` | **Secret Isolation** | Bảo vệ Secret của Team C trước Team B | Team B truy cập: `no`, Team C truy cập: `yes` | **PASSED** |
 | `TEST_04` | **NetworkPolicy Ingress** | Calico CNI chặn giao tiếp mạng Pod-to-Pod | Chặn mặc định (Default Deny), chỉ mở rule chỉ định | **PASSED** |
 | `TEST_05` | **Admission Policy Whitelist** | Chặn các Container Image độc hại (như crypto-miner) | ValidatingAdmissionPolicy từ chối ở tầng API Server | **PASSED** |
-| `TEST_06` | **Controlled Resource Contention**| Chống hiện tượng láng giềng ồn ào (Noisy Neighbor) | Linux cgroups bóp CPU tại 200m Limit, Node an toàn | **PASSED** |
+| `TEST_06` | **Controlled Resource Contention**| Kiểm soát hiện tượng láng giềng ồn ào (Noisy Neighbor) | Linux cgroups bóp CPU Team A tại 200m (96.4%), Team B/C 0% throttling, không restart | **PASSED** |
 
 ---
 
@@ -175,6 +174,3 @@ c:\WEBSITE-ĐTDDM\
 - Đọc kịch bản thuyết trình và bộ câu hỏi vấn đáp: [docs/demo-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/demo-guide.md)
 - Hướng dẫn cài đặt và khắc phục sự cố: [docs/installation-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/installation-guide.md)
 - Hướng dẫn thao tác giao diện: [docs/user-guide.md](file:///c:/WEBSITE-%C4%90TDDM/docs/user-guide.md)
-=======
-# Website-test
->>>>>>> origin/main

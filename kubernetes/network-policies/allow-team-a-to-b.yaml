@@ -10,7 +10,9 @@ metadata:
   labels:
     demo-policy: "true"
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app: demo-target-b
   policyTypes:
   - Ingress
   ingress:
@@ -18,3 +20,6 @@ spec:
     - namespaceSelector:
         matchLabels:
           team: team-a
+    ports:
+    - protocol: TCP
+      port: 80

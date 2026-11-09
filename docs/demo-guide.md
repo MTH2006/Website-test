@@ -109,7 +109,7 @@
 - **Cách demo trên Web:**
   1. Tại thẻ **Test 06 – Resource Contention**, nhấn **"Chạy Kiểm Thử"**.
 - **Diễn giải cho giảng viên:**
-  > *"Hệ thống sinh tải CPU có kiểm soát bên trong namespace thử nghiệm. Nhờ có `LimitRange` và `resources.limits.cpu = 200m`, nhân Linux cgroups tự động bóp nghẽn (CPU Throttling) container sinh tải ở đúng mức trần 200 millicores. Node vật lý và các Pod của Team A, Team B vẫn vận hành mượt mà với 0% độ trễ."*
+  > *"Hệ thống sinh tải CPU có kiểm soát bên trong namespace thử nghiệm. Nhờ có cấu hình `resources.limits.cpu = 200m`, nhân Linux CFS Scheduler tự động kích hoạt bóp tải (96.4% chu kỳ) đối với Pod sinh tải của Team A. Workload của Team B và Team C không ghi nhận hiện tượng CFS Throttling (0.0%) và không bị restart (restarts=0, lỗi=0). Mặc dù độ trễ HTTP có tăng nhẹ (Team B tăng 0.19 ms, Team C tăng 0.32 ms) do dùng chung tài nguyên Node vật lý, dịch vụ của Team B và Team C vẫn duy trì phản hồi ổn định ở mức sub-millisecond (< 1 ms)."*
 
 ---
 
